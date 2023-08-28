@@ -7,7 +7,7 @@
 #           A01379299 Ricardo Ramírez Condado
 #
 # Fecha de creación: 24/08/2022
-# Última actualización: 27/08/2022
+# Última actualización: 28/08/2022
 # ----------------------------------------------------------
 
 import numpy as np
