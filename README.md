@@ -19,20 +19,20 @@ Se espera que el código sea capaz de detectar si un paciente tiene cancer de ma
 ## Cómo correr el código:
 
 1. Clona el repositorio o descarga el archivo .zip.
-   ![image](https://github.com/RC0ndado/IA_Avanzada/assets/ss1.png)
+   ![image](https://github.com/RC0ndado/IA_Avanzada/blob/main/assets/ss1.png)
 
 2. Abre la carpeta en tu entorno local (asegúrate de tener Python instalado, junto con las bibliotecas `pandas` y `numpy`).
-   ![image](https://github.com/tuUsuario/tuRepositorio/assets/idImagen2)
+   ![image](https://github.com/RC0ndado/IA_Avanzada/blob/main/assets/ss2.png)
 
 - Nota: Si no tienes la biblioteca instalada, usa `pip install pandas`, o si no tienes la biblioteca instalada de numpy, usa `pip install numpy`.
 
 3. Ejecuta el código con el corredor de código o terminal. Las dos formas de ejecutarlo son:
 
    1. Escribe en tu terminal `python neurona.py `  
-      ![image](https://github.com/tuUsuario/tuRepositorio/assets/idImagen4).
+      ![image](https://github.com/RC0ndado/IA_Avanzada/blob/main/assets/ss3.png).
 
    2. O bien puedes usar el corredor de código:
-      ![image](https://github.com/tuUsuario/tuRepositorio/assets/idImagen4).
+      ![image](https://github.com/RC0ndado/IA_Avanzada/blob/main/assets/ss5.png).
 
 4. Una vez que el programa se ejecute, te mostrará la precisión del modelo con respecto al conjunto de pruebas.
-   ![image](https://github.com/tuUsuario/tuRepositorio/assets/idImagen5)
+   ![image](https://github.com/RC0ndado/IA_Avanzada/blob/main/assets/ss4.png)
