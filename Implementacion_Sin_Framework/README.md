@@ -46,3 +46,17 @@ Se espera que el código sea capaz de detectar si un paciente tiene cancer de ma
 
 4. Una vez que el programa se ejecute, te mostrará la precisión del modelo con respecto al conjunto de pruebas.
    ![image](https://github.com/RC0ndado/IA_Avanzada/blob/main/assets/ss4.png)
+
+### Actualización:
+
+La salida de este repositorio proporcionaba la predicción individual por cada muestra, sin embargo para que esta fuese más clara, se optó por realizar la impresión del resumen de predicciones correctas vs. incorrectas:
+![image](https://github.com/RC0ndado/IA_Avanzada/blob/main/assets/ss6.png)
+
+Esto para que se puedan observar de mejor los resultados:
+![image](https://github.com/RC0ndado/IA_Avanzada/blob/main/assets/ss6.png)
+
+### Evaluación del modelo:
+
+Este modelo se evaluó con diferentes medidas, e incluso está programado para que haga la medición con más de una ejecución, con diferentes datos dentro del dataset proporcionado, lo cual refleja que la precisión siempre varía en cada ejecuación como se puede apreciar en la siguiente imágen:
+
+![image](https://github.com/RC0ndado/IA_Avanzada/blob/main/assets/ss7.png)
