@@ -128,12 +128,14 @@ if __name__ == "__main__":
     recalls = []
     f1_scores = []
 
+    # Listas para almacenar todas las predicciones y métricas
+    # todas_predicciones = []
+    todas_metricas = []
+    todas_verdaderas = []
+    predictions = []
+
     print("Resultados de validación cruzada:")
     print("---------------------------------")
-
-    # Listas para almacenar todas las predicciones y métricas
-    todas_predicciones_texto = []
-    todas_metricas = []
 
     # Iterar sobre cada fold en la validación cruzada
     for train_index, test_index in kfold.split(X):
@@ -145,17 +147,24 @@ if __name__ == "__main__":
 
         # Realizar predicciones con el umbral óptimo
         Y_predicho = predecir(X_prueba, umbral_optimo)
+        # todas_predicciones.extend(Y_predicho)
+        predictions.extend(Y_predicho)
+        todas_verdaderas.extend(Y_prueba)
 
         # Almacenar predicciones individuales
         predicciones_texto = []
 
         # Mostrar predicciones individuales
-        for y_verdadero, y_predicho in zip(Y_prueba, Y_predicho):
-            etiqueta_esperada = "maligno" if y_verdadero == 1 else "benigno"
-            etiqueta_predicha = "maligno" if y_predicho else "benigno"
-            predicciones_texto.append(
-                f"Esperado: {etiqueta_esperada}, Predicho: {etiqueta_predicha}"
-            )
+        """
+            Este fragmento se comentó para tener mejor visualización
+            los resultados, es libre de descomentarla.
+        """
+        # for y_verdadero, y_predicho in zip(Y_prueba, Y_predicho):
+        #     etiqueta_esperada = "maligno" if y_verdadero == 1 else "benigno"
+        #     etiqueta_predicha = "maligno" if y_predicho else "benigno"
+        #     predicciones_texto.append(
+        #         f"Esperado: {etiqueta_esperada}, Predicho: {etiqueta_predicha}"
+        #     )
 
         # Cálculo de métricas y almacenamiento de las mismas
         precision = precision_score(Y_prueba, Y_predicho)
@@ -176,15 +185,19 @@ if __name__ == "__main__":
         )
 
         # Imprimir predicciones individuales
-        for prediccion in predicciones_texto:
-            print(prediccion)
+        # Este se comentó para mejorar la visualización
+        # sin embargo es libre de descomentarlas
+        # for prediccion in predicciones_texto:
+        #     print(prediccion)
 
         # Separador para la siguiente iteración
         print("\n" + "-" * 30)
 
-        # Imprimir todas las métricas
-        for metrica in todas_metricas:
-            print(metrica)
+        # # Imprimir todas las métricas
+        # Este se comentó para mejorar la visualización
+        # sin embargo es libre de descomentarlas
+        # for metrica in todas_metricas:
+        #     print(metrica)
 
         # Imprimir todas las métricas
         for metrica in todas_metricas:
@@ -197,7 +210,38 @@ if __name__ == "__main__":
         print("Matriz de confusión:")
         print(matriz_confusion(Y_prueba, Y_predicho))
 
+    # Calculate the confusion matrix
+    conf_matrix = confusion_matrix(Y, predictions)
+
+    # Extracting the values from the confusion matrix
+    TP = conf_matrix[1, 1]
+    TN = conf_matrix[0, 0]
+    FP = conf_matrix[0, 1]
+    FN = conf_matrix[1, 0]
+
+    # Calculating Sensitivity and Specificity
+    sensitivity = TP / (TP + FN)
+    specificity = TN / (TN + FP)
+
+    # Calculating Accuracy
+    # accuracy = accuracy_score(Y, predictions)
+    accuracy = puntuacion_precision(todas_verdaderas, predictions)
+
     print("\nResumen:")
     print(f"Precisión media: {np.mean(precisiones)*100:.2f}%")
     print(f"Recall medio: {np.mean(recalls)*100:.2f}%")
     print(f"F1 Score medio: {np.mean(f1_scores)*100:.2f}%")
+
+correctas = sum(
+    [verdadero == predicho for verdadero, predicho in zip(Y_prueba, Y_predicho)]
+)
+incorrectas = len(Y_prueba) - correctas
+print(f"Predicciones correctas: {correctas}")
+print(f"Predicciones incorrectas: {incorrectas}")
+
+# Displaying the metrics
+print("\n*** Métricas Adicionales ***")
+print("Exactitud (Accuracy):", round(accuracy, 2))
+print("Sensibilidad (Recall):", round(sensitivity, 2))
+print("Especificidad:", round(specificity, 2))
+print("***************************")
