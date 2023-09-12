@@ -24,7 +24,13 @@ Se espera que el código sea capaz de detectar si un paciente tiene cancer de ma
 2. Abre la carpeta en tu entorno local (asegúrate de tener Python instalado, junto con las bibliotecas `pandas` y `numpy`).
    ![image](https://github.com/RC0ndado/IA_Avanzada/blob/main/assets/ss2.png)
 
-- Nota: Si no tienes la biblioteca instalada, usa `pip install pandas`, o si no tienes la biblioteca instalada de numpy, usa `pip install numpy`.
+- Nota: Si no tienes la biblioteca instalada, usa `pip install pandas`, o si no tienes la biblioteca instalada de numpy, usa `pip install numpy`
+
+#### Actualización:
+
+- También es necesario contar con la siguiente librería: `pip install scikit-learn`, la cual servirá para realizar las evaluaciones de nuestro modelo de aprendizaje.
+
+  **_Nota: Es necesario aclarar que estas librerías NO intervienen en el desarrollo de nuestro modelo, sino que sirven para ayudarnos en la ejecución de evaluación del modelo, al igual que ayuda a demostrar que claramente generaliza_**.
 
 3. Ejecuta el código con el corredor de código o terminal. Las dos formas de ejecutarlo son:
 
@@ -33,6 +39,10 @@ Se espera que el código sea capaz de detectar si un paciente tiene cancer de ma
 
    2. O bien puedes usar el corredor de código:
       ![image](https://github.com/RC0ndado/IA_Avanzada/blob/main/assets/ss5.png).
+
+#### Actualización:
+
+**_Nota: En el repositorio existen diferentes archivos, los cuales son modelos SIN FRAMEWORKS, los cuales realizan el mismo análisis, sin embargo, considero que para tener mejor rendimiento y mejor visualización de los resultados, ejecute el archivo `neurona.py`._**.
 
 4. Una vez que el programa se ejecute, te mostrará la precisión del modelo con respecto al conjunto de pruebas.
    ![image](https://github.com/RC0ndado/IA_Avanzada/blob/main/assets/ss4.png)
