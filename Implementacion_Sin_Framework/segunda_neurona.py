@@ -78,6 +78,12 @@ def puntuacion_precision(y_verdadero, y_predicho):
     return predicciones_correctas / len(y_verdadero)
 
 
+def error_rate(y_verdadero, y_predicho):
+    """Calcula el error rate de las predicciones."""
+    precision = puntuacion_precision(y_verdadero, y_predicho)
+    return 1 - precision
+
+
 def binarizar_datos(datos):
     """
     Binariza las características del conjunto de datos en función de sus valores medianos.
@@ -94,35 +100,60 @@ def binarizar_datos(datos):
     return datos
 
 
-if __name__ == "__main__":
-    # Cargar y preprocesar los datos
-    datos = pd.read_csv("breast_cancer_data.csv")
-    datos = binarizar_datos(datos)
+class PerceptronIncremental:
+    def __init__(self, tasa_aprendizaje_inicial=0.1, epocas=100):
+        self.tasa_aprendizaje_inicial = tasa_aprendizaje_inicial
+        self.epocas = epocas
+        self.pesos = None
+        self.historial_precision = []
 
-    # Dividir los datos en conjuntos de entrenamiento y prueba (80% entrenamiento, 20% prueba)
+    def ajustar(self, X, Y):
+        num_muestras, num_caracteristicas = X.shape
+        self.pesos = np.random.randn(num_caracteristicas) * 0.01
+        Y_ = np.array([1 if i > 0 else 0 for i in Y])
+
+        for epoca in range(self.epocas):
+            tasa_aprendizaje = self.tasa_aprendizaje_inicial / (
+                1 + epoca
+            )  # Tasa de aprendizaje adaptativa
+            for idx, x_i in enumerate(X):
+                condicion = np.dot(x_i, self.pesos)
+                prediccion = 1 if condicion > 0 else 0
+                actualizacion = tasa_aprendizaje * (Y_[idx] - prediccion)
+                self.pesos += actualizacion * x_i
+
+            predicciones = self.predecir(X)
+            precision_actual = puntuacion_precision(Y_, predicciones)
+            self.historial_precision.append(precision_actual)
+
+    def predecir(self, X):
+        prediccion = np.dot(X, self.pesos)
+        return [1 if i > 0 else 0 for i in prediccion]
+
+
+if __name__ == "__main__":
+    datos = pd.read_csv("breast_cancer_data.csv")
+    # No binarizamos los datos
+
     proporcion_division = 0.8
     indice_division = int(len(datos) * proporcion_division)
     datos_entrenamiento = datos.iloc[:indice_division]
     datos_prueba = datos.iloc[indice_division:]
 
-    # Separar características y etiquetas
-    X_entrenamiento = datos_entrenamiento.drop(columns="Label").values.tolist()
-    Y_entrenamiento = datos_entrenamiento["Label"].values.tolist()
-    X_prueba = datos_prueba.drop(columns="Label").values.tolist()
-    Y_prueba = datos_prueba["Label"].values.tolist()
+    X_entrenamiento = datos_entrenamiento.drop(columns="Label").values
+    Y_entrenamiento = datos_entrenamiento["Label"].values
+    X_prueba = datos_prueba.drop(columns="Label").values
+    Y_prueba = datos_prueba["Label"].values
 
-    # Entrenar la Neurona MP y obtener el umbral óptimo
-    umbral_optimo = ajustar(X_entrenamiento, Y_entrenamiento)
+    perceptron_incremental = PerceptronIncremental(
+        tasa_aprendizaje_inicial=0.1, epocas=500
+    )
+    perceptron_incremental.ajustar(X_entrenamiento, Y_entrenamiento)
 
-    # Predecir en el conjunto de prueba
-    Y_predicho = predecir(X_prueba, umbral_optimo)
+    # Realizar predicciones en el conjunto de prueba
+    predicciones = perceptron_incremental.predecir(X_prueba)
+    precision = puntuacion_precision(Y_prueba, predicciones) * 100
+    tasa_error = error_rate(Y_prueba, predicciones) * 100
 
-    # Imprimir predicciones individuales para cada punto de datos
-    for y_verdadero, y_predicho in zip(Y_prueba, Y_predicho):
-        etiqueta_esperada = "maligno" if y_verdadero == 1 else "benigno"
-        etiqueta_predicha = "maligno" if y_predicho else "benigno"
-        print(f"Esperado: {y_verdadero}, Predicho: {etiqueta_predicha}")
-
-    # Calcular la precisión
-    precision = puntuacion_precision(Y_prueba, Y_predicho) * 100
     print(f"\nPrecisión del modelo: {precision:.2f}%\n")
+    print(f"Tasa de error del modelo: {tasa_error:.2f}%\n")
