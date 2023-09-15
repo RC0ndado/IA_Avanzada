@@ -34,6 +34,6 @@ Nuevamente, la "Figura 2" y su descripción abordan tanto el sesgo como la varia
   La misma "Figura 2" y su descripción abordan el ajuste del modelo, ya que se discute sobre el overfitting y el underfitting.
 - Incluso también argumento dentro de una gráfica nueva los resultados obtenidos en la figura 9.
 
-![image](https://github.com/RC0ndado/IA_Avanzada/blob/main/assets/ss10.png)
+![image](https://github.com/RC0ndado/IA_Avanzada/main/assets/ss10.png)
 
 ![image](https://github.com/RC0ndado/IA_Avanzada/blob/main/assets/ss11.png)
