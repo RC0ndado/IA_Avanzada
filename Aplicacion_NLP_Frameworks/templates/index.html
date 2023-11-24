@@ -1,0 +1,177 @@
+{% extends "bootstrap/base.html" %}
+
+{% block content %}
+
+<!-- Estilos personalizados junto a Bootstrap -->
+<style type="text/css">
+		body{
+			font:15px/1.5 Arial, Helvetica,sans-serif;
+		}
+	/* Spinner de carga */
+		.spinner-1:before{
+			content: "";
+			box-sizing: border-box;
+			position: absolute;
+			top:50%;
+			left: 50%;
+			height: 60px;
+			width: 60px;
+			margin-top: -30px;
+			margin-left: -30px;
+			border-radius: 50%;
+			border:6px solid transparent;
+			border-top-color: blue;
+			animation: spinner 0.7s linear infinite;
+		}
+		/* Jumbotron y los elementos de lista */
+        .jumbotron text-center{
+            background-color:green;
+            text-color:white;
+        }
+
+		/* Animación del spinner */
+		@keyframes spinner {
+			to {
+				transform: rotate(360deg);
+			}
+
+		}
+		/* Estilos alternativos para elementos de lista */
+		li { background-color:#BDBDBD; }
+		li:nth-child(odd) { background-color:green; }
+</style>
+
+<!-- Container principal de la `página -->
+<div class="container">
+	<div class="jumbotron text-center">
+		<!-- Título y descripción -->
+		<h3><b>SENTIMENT ANALYSIS USING NLP<b></h3>
+				<p>Text Summarization Tool</p>
+			</div>
+		</div>
+
+		<div class="container">
+			<!-- Formulario de texto a analizar -->
+			<form method="POST" action="{{ url_for('analyse')}}" id="myForm">
+
+				<label>
+					<strong>Enter Your Text Below<strong>
+				</label><br>
+					<textarea class="form-control" rows="20" cols="40" name="rawtext"
+						oninput="limitText(this)"></textarea>
+					<br>
+						<input type="submit" onclick="myAnalyser()" value="Submit"
+							class="btn btn-primary ">
+						<input type="button" onclick="myFunction()" value="Clear"
+							class="btn btn-outline-dark">
+
+						<a href="{{ url_for('index')}}" type="button" class="btn btn-danger">
+							Reset</a>
+			</form>
+		</div>
+
+
+				<br />
+				<hr />
+		
+		<!-- Sección para mostrar los resultados del análisis -->
+				<div class="main">
+					<div class="container">
+						<div class="card">
+							<div class="card-header">
+								Main Points
+							</div>
+							<div class="card-body">
+								<h5 class="card-title"><div class="alert alert-primary" role="alert">
+										This text has {{number_of_tokens}} tokens with {{len_of_words}}
+										important point
+									</div> </h5>
+								<div class="card-text">
+									<h5>Your Text</h5>
+									<p style="color:#0091EA;font-family:sans-serif;">{{ received_text }}</p>
+									<hr />
+									<br />
+									<p>Time Elapsed: <span style="color:#0091EA;">{{ final_time }} </span>
+										seconds to analyse</p>
+									<p>This text is about:</p>
+									{% for i in summary %}
+									<ul class="list-group ">
+										<li class="list-group-item list-group-item-info"><span
+												style="color:black">{{i}}</span>
+											<a href="http://www.dictionary.com/browse/{{i}}?s=" target="_blank"
+												type="button" class="btn btn-outline-primary btn-sm"
+												style="float:right;font-size:9px;color:#fff;">View</a>
+
+										</li>
+									</ul>
+
+									{% endfor %}
+								</div>
+								<!-- Muestra el análisis de sentimientos -->
+								<div class="card-footer text-muted">
+									{% if sentiment_analysis %}
+									<!-- Tabla de los resultados -->
+									<table class="table table-striped table-dark">
+										<thead>
+											<tr>
+												<th scope="col">Sentiment</th>
+												<th scope="col">Score</th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr>
+												<th scope="row">{{sentiment_analysis.label}}</th>
+												<td>{{sentiment_analysis.score}}</td>
+											</tr>
+										</tbody>
+									</table>
+									{% else %}
+									<!-- Mensaje en caso de no haber datos de análisis de sentimientos -->
+									<p>No sentiment analysis data available.</p>
+									{% endif %}
+								</div>
+
+							</div>
+						</div>
+
+						{% endblock %}
+
+						<!-- Scripts para manejar la interacción en el formulario -->
+						<!-- Scripts starts here -->
+						{% block scripts %}
+
+						{{ super() }}
+
+						<script>
+function myFunction() {
+    document.getElementById("myForm").reset();
+}
+</script>
+						<script>
+function myAnalyser() {
+    document.querySelector('.main div').style.display = 'none';
+	// Esconder división main
+	document.querySelector('.main').classList.add('spinner-1');
+	// Server request
+	setTimeout(() => {
+	document.querySelector('.main').classList.remove('spinner-1');
+	//Eliminar la animación
+	document.querySelector('.main div').style.display = 'block';
+	// Muestra el contenido principal
+	},5000);
+}
+
+function limitText(field) {
+    var maxWords = 100; // Limitar a 100 palabras
+    var words = field.value.split(/\s+/);
+    if (words.length > maxWords) {
+        field.value = words.slice(0, maxWords).join(" ");
+        alert('Has excedido el límite de palabras!');
+    }
+}
+
+</script>
+
+						<!-- Prevent it from being overwritten -->
+
+						{% endblock %}
