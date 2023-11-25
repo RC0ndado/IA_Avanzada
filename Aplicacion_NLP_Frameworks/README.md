@@ -1,5 +1,7 @@
 # Análisis de Sentimientos con Flask
 
+A01379299 - Ricardo Ramírez Condado
+
 Este proyecto es una aplicación web desarrollada con Flask que realiza un análisis de sentimientos en textos proporcionados por el usuario. Utiliza la biblioteca `transformers` de Hugging Face para procesar el texto y determinar su tono emocional.
 
 ## Requisitos Previos
