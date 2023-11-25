@@ -4,7 +4,7 @@ Para este código es necesario ejecutar dentro del mismo directorio la carpeta '
 
 ## Instalación
 
-Para configurar y ejecutar la aplicación, sigue estos pasos:
+Para configurar y ejecutar la aplicación, sigue estos pasos: 'clasific_tweets_desastres.ipynb'
 
 1. **Clonar el Repositorio (Opcional):**
    Si tienes el código en un repositorio de Git, clónalo en tu máquina local. De lo contrario, asegúrate de tener todos los archivos del proyecto en tu computadora.
