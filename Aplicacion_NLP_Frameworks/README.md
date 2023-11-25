@@ -58,6 +58,9 @@ Una vez que la aplicación esté en funcionamiento, puedes utilizarla siguiendo 
 2. Haz clic en el botón 'Submit' para enviar el texto.
 3. La aplicación mostrará el análisis de sentimientos del texto proporcionado.
 
-## Licencia
+## Vídeo Demostración
 
-Incluye información sobre la licencia si es aplicable.
+En el siguiente vídeo se muestra la funcionalidad en aplicación del siguiente código:
+
+
+https://github.com/RC0ndado/IA_Avanzada/assets/81990698/6cb3f6d2-4bdb-4de5-8a7a-318f4a3f8053
