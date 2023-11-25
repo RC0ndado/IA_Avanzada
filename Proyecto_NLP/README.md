@@ -2,6 +2,8 @@
 
 Para este código es necesario ejecutar dentro del mismo directorio la carpeta 'archive':
 
+El archivo que debe de ejecutarse es: 'clasific_tweets_desastres.ipynb'
+
 ## Instalación
 
 Para configurar y ejecutar la aplicación, sigue estos pasos: 'clasific_tweets_desastres.ipynb'
